@@ -986,60 +986,8 @@
         }
     </style>
 </head>
-<!-- Notification Toast -->
-<div id="desktop-notification" style="
-    display: none;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--dark-card);
-    color: var(--dark-text);
-    padding: 15px 20px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    z-index: 5000;
-    font-size: 0.95rem;
-">
-    <span>Shift to desktop site for best experience</span>
-    <button id="shift-desktop-btn" style="
-        margin-left: 10px;
-        padding: 6px 12px;
-        border: none;
-        border-radius: 6px;
-        background: linear-gradient(45deg, var(--primary), var(--secondary));
-        color: white;
-        font-weight: 600;
-        cursor: pointer;
-    ">
-        Shift Now
-    </button>
-</div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        function isMobile() {
-            return window.innerWidth < 1024; // treat <1024px as non-desktop
-        }
 
-        if (isMobile()) {
-            setInterval(() => {
-                const notif = document.getElementById("desktop-notification");
-                notif.style.display = "flex";
-                notif.style.alignItems = "center";
-            }, 15000);
-
-            document.getElementById("shift-desktop-btn").addEventListener("click", () => {
-                // ✅ Force desktop site by modifying viewport meta
-                let viewport = document.querySelector("meta[name=viewport]");
-                if (viewport) {
-                    viewport.setAttribute("content", "width=1024"); // force desktop width
-                }
-                // Hide notification after shift
-                document.getElementById("desktop-notification").style.display = "none";
-            });
-        }
-    });
-</script>
 
 <body>
     <div class="container">
@@ -1841,6 +1789,20 @@
             <button class="close-modal" id="close-modal">Close</button>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function isMobile() {
+                return window.innerWidth < 1024; // treat <1024px as non-desktop
+            }
+
+            if (isMobile()) {
+                let viewport = document.querySelector("meta[name=viewport]");
+                if (viewport) {
+                    viewport.setAttribute("content", "width=1024"); // force desktop scaling
+                }
+            }
+        });
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
